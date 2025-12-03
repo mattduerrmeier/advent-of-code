@@ -26,9 +26,28 @@ def search(line: str) -> tuple[str, int]:
 
     return (max_char, max_idx)
 
+def solve_2(lines: list[str]) -> str:
+    counter = 0
+    for line in lines:
+        acc = ""
+        start, stop = 0, len(line) - 11
+        while stop <= len(line):
+            window = line[start:stop]
+            max_val = max(window)
+            acc += max_val
+            idx = window.index(max_val)
+            start += (idx + 1)
+            stop += 1
+
+        counter += int(acc)
+
+    return counter
+
+
 with open("input-03.txt", "r") as f:
     lines = f.read().rstrip().split("\n")
 
 example = ["987654321111111", "811111111111119", "234234234234278", "818181911112111"]
 
 print("Answer 1:", solve_1(lines))
+print("Answer 1:", solve_2(lines))
