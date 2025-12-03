@@ -19,7 +19,7 @@ def solve_2(lines: list[str], dial: int = 50) -> int:
     return counter
 
 
-with open("input.txt", "r") as f:
+with open("input01.txt", "r") as f:
     lines = f.readlines()
 
 example = ["L68", "L30", "R48", "L5", "R60", "L55", "L1", "L99", "R14", "L82"]

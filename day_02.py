@@ -33,7 +33,7 @@ def solve_2(lines: list[str]) -> int:
     return counter
 
 
-with open("input-02.txt", "r") as f:
+with open("input02.txt", "r") as f:
     lines = f.read().rstrip().split(",")
 
 example = [
