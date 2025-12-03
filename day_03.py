@@ -44,7 +44,7 @@ def solve_2(lines: list[str]) -> str:
     return counter
 
 
-with open("input-03.txt", "r") as f:
+with open("input03.txt", "r") as f:
     lines = f.read().rstrip().split("\n")
 
 example = ["987654321111111", "811111111111119", "234234234234278", "818181911112111"]
