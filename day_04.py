@@ -11,7 +11,6 @@ def solve_1(lines: list[str], verbose: bool = False) -> tuple[int, list[tuple[in
             chunk = lines[i-1:i+2]
 
         assert(len(chunk)) == 3
-
         chunk  = ["." + ex + "." for ex in chunk]
         start, stop = 0, 3
         while stop <= len(chunk[0]):
@@ -34,7 +33,7 @@ def solve_1(lines: list[str], verbose: bool = False) -> tuple[int, list[tuple[in
 
     return (counter, to_remove)
 
-def solve_2(lines: str, verbose: bool = False) -> int:
+def solve_2(lines: list[str], verbose: bool = False) -> int:
     counter = 0
     while True:
         local_counter, to_remove = solve_1(lines, verbose=verbose)
@@ -53,7 +52,6 @@ def solve_2(lines: str, verbose: bool = False) -> int:
 
 def remove_roll(lines: list[str], to_remove: list[tuple[int, int]]) -> list[str]:
     new_lines = lines.copy()
-
     for (i, j) in to_remove:
         new_lines[i] = new_lines[i][:j] + "." + new_lines[i][j+1:]
 
