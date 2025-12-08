@@ -38,7 +38,6 @@ def solve_2(lines: list[str]) -> int:
             operator = acc[-1].rstrip()
             values = acc[:-1]
 
-            sub = 1 if (i != len(lines[0])-1) else 0
             num_values = max([len(c.rstrip()) for c in values])
             re_order: list[int] = [0] * num_values
             for x in range(num_values):
