@@ -33,6 +33,30 @@ def find_largest_comps(circuits: list[tuple[tuple[int, int, int], tuple[int, int
     acc = [len(comps[i]) for i in range(3)]
     return acc
 
+def solve_2(lines: list[int]) -> int:
+    distances = {}
+    for idx1 in range(len(lines)):
+        p1 = lines[idx1]
+        for idx2 in range(idx1+1, len(lines)):
+            p2 = lines[idx2]
+            dist = euclidean_dist(p1, p2)
+            distances[dist] = (p1, p2)
+
+    G = nx.Graph()
+    G.add_nodes_from([tuple(x) for x in lines])
+    last_point = (0, 0)
+    while len(distances) != 0:
+        min_dist = min(distances.keys())
+        min_points = distances.pop(min_dist)
+        p1, p2 = tuple(min_points[0]), tuple(min_points[1])
+        G.add_edge(p1, p2)
+        last_point = p1, p2
+
+        if nx.is_connected(G):
+            break
+
+    return last_point
+
 
 with open("input08.txt", "r") as f:
     lines = f.read().rstrip().split("\n")
@@ -61,4 +85,6 @@ example = [
         [425,690,689],
 ]
 
-print(solve_1(lines, 1000))
+print("Answer 1:", solve_1(lines, 1000))
+print("Answer 2:", solve_2(lines))
+
