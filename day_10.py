@@ -1,4 +1,6 @@
+from scipy.optimize import linprog
 from itertools import combinations
+import numpy as np
 
 def solve_1(line: list[str]) -> int:
     counter = 0
@@ -33,6 +35,34 @@ def solve_1(line: list[str]) -> int:
     return counter
 
 
+def solve_2(lines: list[str]) -> int:
+    counter = 0
+    for line in lines:
+        ind_idx = line.index("]")
+        buttons_idx = line.index("{")
+
+        buttons = line[ind_idx+2:buttons_idx-1]
+        buttons = list(eval(buttons.replace("(", "[").replace(")", "]").replace(" ", ",")))
+        joltage = eval(line[buttons_idx:].replace("{", "[").replace("}", "]"))
+
+        c = [1] * len(buttons)
+        bounds = [(0, None)] * len(buttons)
+
+        A_eq = []
+        for row in buttons:
+            l = [0] * len(joltage)
+            for i in row:
+                l[i] = 1
+            A_eq.append(l)
+
+        A_eq = np.array(A_eq).T
+        b_eq = joltage
+        res = linprog(c=c, A_eq=A_eq, b_eq=b_eq, bounds=bounds, integrality=[1]*len(buttons))
+        counter += int(res.fun)
+
+    return counter
+
+
 with open("input10.txt", "r") as f:
     lines = f.read().rstrip().split("\n")
 
@@ -42,4 +72,5 @@ example = [
     "[.###.#] (0,1,2,3,4) (0,3,4) (0,1,2,4,5) (1,2) {10,11,11,5,10,5}",
 ]
 
-print(solve_1(lines))
+print("Answer 1:", solve_1(lines))
+print("Answer 2:", solve_2(lines))
